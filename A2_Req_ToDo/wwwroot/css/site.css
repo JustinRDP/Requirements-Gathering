@@ -1,0 +1,91 @@
+/* Base font size adjustments */
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+/* Focus styles for buttons, links, and form controls */
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+/* Ensuring the page takes the full height */
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+  background-color: #121212; /* Almost black background */
+  color: white; /* Text color is white for contrast */
+  font-family: Arial, sans-serif;
+  padding-top: 60px; /* Added padding to the top */
+}
+
+/* Style for the success banner */
+.success-banner {
+  display: none; /* Initially hidden */
+  background-color: #28a745; /* Green color */
+  color: white;
+  padding: 10px;
+  text-align: center;
+  font-size: 16px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 9999; /* Ensure it's on top of other content */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  font-weight: bold;
+}
+
+/* Style for the close button on the banner */
+.close-btn {
+  position: absolute;
+  top: 5px;
+  right: 10px;
+  cursor: pointer;
+  font-size: 20px;
+  color: white;
+}
+
+/* Table row styling based on priority level */
+.low-priority {
+  background-color: #ffebcd; /* Pale orange for low priority */
+}
+
+.medium-priority {
+  background-color: #ffcc00; /* Vivid orange for medium priority */
+}
+
+.high-priority {
+  background-color: #ff6600; /* Even more vivid orange for high priority */
+}
+
+/* Table styling */
+table {
+  width: 100%;
+  margin-top: 20px;
+}
+
+th, td {
+  text-align: left;
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+th {
+  background-color: #333; /* Dark background for header */
+  color: white; /* White text for the header */
+}
+
+/* Styling for buttons */
+.btn {
+  margin-right: 5px;
+}

@@ -1,0 +1,65 @@
+@model A2_Req_ToDo.Models.Task
+
+@{
+    ViewData["Title"] = "Edit Task";
+    
+    // Create a list of tags and priorities to populate the dropdowns
+    var tags = new List<SelectListItem>
+    {
+        new SelectListItem { Text = "Work", Value = "Work" },
+        new SelectListItem { Text = "Personal", Value = "Personal" },
+        new SelectListItem { Text = "Health", Value = "Health" },
+        new SelectListItem { Text = "School", Value = "School" },
+        new SelectListItem { Text = "Other", Value = "Other" }
+    };
+
+    var priorities = new List<SelectListItem>
+    {
+        new SelectListItem { Text = "Low", Value = "Low" },
+        new SelectListItem { Text = "Medium", Value = "Medium" },
+        new SelectListItem { Text = "High", Value = "High" }
+    };
+
+    // Get today's date in yyyy-MM-dd format for the min date
+    var currentDate = DateTime.Now.ToString("yyyy-MM-dd");
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+</head>
+<body>
+    <h1>@ViewData["Title"]</h1>
+
+    <form method="post" action="@Url.Action("EditTask", "Home", new { id = Model.TaskID })">
+        <div class="form-group">
+            <label for="TaskName">Task Name</label>
+            <input type="text" class="form-control" id="TaskName" name="TaskName" value="@Model.TaskName" required />
+        </div>
+
+        <div class="form-group">
+            <label for="DueDate">Due Date</label>
+            <input type="date" class="form-control" id="DueDate" name="DueDate" 
+                   value="@Model.DueDate.ToString("yyyy-MM-dd")" required min="@currentDate" />
+        </div>
+
+        <!-- Dropdown for Tag -->
+        <div class="form-group">
+            <label for="Tag">Tag</label>
+            @Html.DropDownListFor(model => model.Tag, tags, "Select a Tag", new { @class = "form-control" })
+        </div>
+
+        <!-- Dropdown for Priority Level -->
+        <div class="form-group">
+            <label for="PriorityLevel">Priority Level</label>
+            @Html.DropDownListFor(model => model.PriorityLevel, priorities, new { @class = "form-control" })
+        </div>
+
+        <button type="submit" class="btn btn-primary">Save Changes</button>
+        <a href="@Url.Action("Index", "Home")" class="btn btn-secondary">Cancel</a>
+    </form>
+</body>
+</html>

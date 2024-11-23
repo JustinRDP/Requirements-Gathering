@@ -1,0 +1,55 @@
+@model A2_Req_ToDo.Models.Task
+
+@{
+    ViewData["Title"] = "Add Task";
+    var currentDate = DateTime.Now.ToString("yyyy-MM-dd");
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+</head>
+<body>
+    <h1>@ViewData["Title"]</h1>
+
+    <form method="post" action="@Url.Action("AddTask", "Home")">
+        <div class="form-group">
+            <label for="TaskName">Task Name</label>
+            <input type="text" class="form-control" id="TaskName" name="TaskName" required />
+        </div>
+
+        <div class="form-group">
+            <label for="DueDate">Due Date</label>
+            <!-- Set the min attribute to today's date -->
+            <input type="date" class="form-control" id="DueDate" name="DueDate" required min="@currentDate" />
+        </div>
+
+        <div class="form-group">
+            <label for="Tag">Tag</label>
+            <select class="form-control" id="Tag" name="Tag">
+                <option value="" disabled selected>Select a Tag</option>
+                <option value="Work">Work</option>
+                <option value="Personal">Personal</option>
+                <option value="Health">Health</option>
+                <option value="School">School</option>
+                <option value="Other">Other</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="PriorityLevel">Priority Level</label>
+            <select class="form-control" id="PriorityLevel" name="PriorityLevel">
+                <option value="Low">Low</option>
+                <option value="Medium">Medium</option>
+                <option value="High">High</option>
+            </select>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Add Task</button>
+        <a href="@Url.Action("Index", "Home")" class="btn btn-secondary">Cancel</a>
+    </form>
+</body>
+</html>

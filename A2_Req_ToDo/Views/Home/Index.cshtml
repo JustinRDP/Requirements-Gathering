@@ -1,0 +1,85 @@
+﻿@model IEnumerable<A2_Req_ToDo.Models.Task>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+
+    <link href="~/css/site.css" rel="stylesheet" />
+    
+</head>
+
+<div class="text-center">
+    <h1>Task Management App</h1>
+    <h1 class="display-4">@ViewData["Title"]</h1>
+
+    @if (TempData["TaskName"] != null)
+    {
+        <!-- Banner for Task Added Success -->
+        <div id="successBanner" class="success-banner" data-task-name="@TempData["TaskName"]">
+            Task "@TempData["TaskName"]" was successfully added!
+            <span id="closeBanner" class="close-btn">&times;</span>
+        </div>
+    }
+
+    <p>Below is a list of tasks you have logged.</p>
+</div>
+
+<div class="container">
+    <a href="@Url.Action("AddTask", "Home")" class="btn btn-primary">Add Task</a> 
+
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Task Name</th>
+                <th>Due Date</th>
+                <th>Tag</th>
+                <th>Priority Level</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var task in Model)
+            {
+                // Apply different background classes based on priority level
+                var rowClass = task.PriorityLevel switch
+                {
+                    "Low" => "low-priority",
+                    "Medium" => "medium-priority",
+                    "High" => "high-priority",
+                    _ => ""
+                };
+
+                <tr class="@rowClass">
+                    <td>@task.TaskName</td>
+                    <td>@task.DueDate.ToString("yyyy-MM-dd")</td>
+                    <td>@task.Tag</td>
+                    <td>@task.PriorityLevel</td>
+                    <td>
+                        <a href="@Url.Action("EditTask", "Home", new { id = task.TaskID })" class="btn btn-warning btn-sm">Edit</a>
+                        <a href="@Url.Action("DeleteTask", "Home", new { id = task.TaskID })" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this task?');">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<script>
+    // Check if the success banner exists (based on TempData)
+    var successBanner = document.getElementById('successBanner');
+    if (successBanner) {
+        // Show the success banner
+        successBanner.style.display = 'block';
+
+        // Automatically hide the banner after 3 seconds
+        setTimeout(function() {
+            successBanner.style.display = 'none';
+        }, 3000); // 3000 milliseconds = 3 seconds
+
+        // Close the banner manually when the close button is clicked
+        document.getElementById('closeBanner').addEventListener('click', function() {
+            successBanner.style.display = 'none';
+        });
+    }
+</script>
